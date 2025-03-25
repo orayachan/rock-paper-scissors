@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍒 Rock Paper Scissors!</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="h-screen w-screen flex justify-center items-center bg-violet-500">
+    <div class="flex flex-col justify-center items-center bg-violet-100 p-8 rounded-2xl">
+        <h1 class="text-orange-400 text-xl md:text-3xl lg:text-5xl font-extrabold"><span>Rock</span> 🆚 Paper 🆚 Scissors</h1>
+        <button class="text-orange-600 text-md lg:text-2xl font-semibold mt-4 md:mt-8 pt-3 pb-3 pl-4 pr-4 border-4 rounded-full border-orange-400 hover:bg-orange-400 hover:text-white" onclick="playGame()">Play Game</button>
+    </div>
+    <script>
+      const getUserChoice = (userInput) => {
+        userInput = userInput.toLowerCase();
+        if (
+          userInput === "rock" ||
+          userInput === "paper" ||
+          userInput === "scissors" ||
+          userInput === "bomb"
+        ) {
+          return userInput;
+        } else {
+          alert("👀 Error! Please insert rock, paper, or scissors.");
+          return null;
+        }
+      };
+
+      const getComputerChoice = () => {
+        const choices = ["rock", "paper", "scissors"];
+        return choices[Math.floor(Math.random() * 3)];
+      };
+
+      const determineWinner = (userChoice, computerChoice) => {
+        if (userChoice === "bomb") {
+          return "BOOM! 💣 You used the secret cheat code! You win! 🚩";
+        }
+        if (userChoice === computerChoice) {
+          return "⚡️ The game is a tie!";
+        }
+        if (userChoice === "rock") {
+          return computerChoice === "paper" ? "You lose! 👎" : "You won! 🩷";
+        }
+        if (userChoice === "paper") {
+          return computerChoice === "scissors" ? "You lose! 👎" : "You won! 🩷";
+        }
+        if (userChoice === "scissors") {
+          return computerChoice === "rock" ? "You lose! 👎" : "You won! 🩷";
+        }
+      };
+
+      const playGame = () => {
+        const userChoice = prompt("Enter rock, paper or scissors:");
+        if (!userChoice) return;
+
+        const userChoiceValidated = getUserChoice(userChoice);
+        if (!userChoiceValidated) return;
+
+        const computerChoice = getComputerChoice();
+        alert(
+          "You threw: " +
+            userChoiceValidated +
+            "\nThe computer threw: " +
+            computerChoice +
+            "\n" +
+            determineWinner(userChoiceValidated, computerChoice)
+        );
+      };
+    </script>
+  </body>
+</html>
